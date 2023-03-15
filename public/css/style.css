@@ -1,0 +1,40 @@
+.home-task {
+    padding-top: 100px;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.home-task-img {
+    width: 75%;
+}
+
+.no-account {
+    font-size: 14px;
+    font-weight:bold;
+    text-align: right;
+}
+
+.max-weight {
+    width: 100%;
+}
+
+.register-header {
+    padding-top: 100px;
+    padding-bottom: 20px;
+    padding-bottom: 50px;
+}
+
+.req {
+    color: red;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.password {
+    font-size: 12px;
+    background-color: red;
+    color: #fff;
+    margin-top: 5px;
+    font-weight: bold;
+    padding:5px
+}
