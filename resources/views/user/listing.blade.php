@@ -74,7 +74,7 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('user.task.show', [$task->id]) }}">
+                                        <a href="{{ route('user.task.show', [$task->id]) }}" target="_new">
                                             <i class="fa fa-search task-fa-listing"></i>
                                         </a>
                                     </td>
@@ -87,7 +87,7 @@
                                         <form action="{{ route('user.task.destroy', [$task->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                <button type="submit" onclick="return confirm('Are You Sure You Want To Delete This Task?')" class="btn btn-sm btn-danger">
                                                     <i class="fa fa-trash-o task-fa-listing_"></i>
                                                 </button>
                                         </form>

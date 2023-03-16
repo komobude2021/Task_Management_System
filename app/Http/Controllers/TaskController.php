@@ -38,15 +38,16 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        return $id;
+        if (!is_numeric($id)) {
+            return back()->with(['error' => 'Error | Unable to perform action']);
+        }
+        $singleTask = $this->taskService->showSingleTask($id);
+        if (!$singleTask) {
+            return back()->with(['error' => 'Error | Unable to perform action']);
+        }
+        return view('user.showtask', compact('singleTask'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
@@ -66,6 +67,9 @@ class TaskController extends Controller
 
     public function destroy($id)
     {
+        if (!is_numeric($id)) {
+            return back()->with(['error' => 'Error | Unable to perform action']);
+        }
         if(!$this->taskService->checkIfUserHasPrivilegeToDelete($id)){
             return back()->with(['error' => 'Error | Unable To perform action']);
         }

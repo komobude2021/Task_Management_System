@@ -38,4 +38,10 @@ class TaskService {
         return $task ? true : false;
     }
 
+    public function showSingleTask($id)
+    {
+        $checkTask = Task::where('users_id', auth()->id())->where('id', $id)->whereNull('deleted_at')->first();
+        return $checkTask ?? false;
+    }
+
 }
