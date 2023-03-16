@@ -13,6 +13,6 @@ class UserService {
 
     public function updateUserRecord($validated)
     {
-        return User::where('id', auth()->id())->update(['github_username' => $validated['github_username']]);
+        return User::where('id', auth()->id())->update($validated);
     }
 }
