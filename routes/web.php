@@ -25,12 +25,13 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/register', [AppController::class, 'registerSubmit'])->name('registerSubmit');
 });
 
-Route::middleware(['auth'])->name('user.')->group(function () {
+Route::middleware(['PreventBackButton', 'auth'])->name('user.')->group(function () {
     Route::get('/home', [UserController::class, 'index'])->name('home');
     Route::post('/home', [UserController::class, 'update'])->name('update');
     Route::get('/github', [GithubController::class, 'index'])->name('github');
     Route::get('/search', [SearchController::class, 'index'])->name('search');
     Route::resource('/task', TaskController::class);
+    Route::post('/task/completed', [TaskController::class, 'completed'])->name('task.completed');
     Route::post('/logout', [AppController::class, 'logout'])->name('logout');
 });
 

@@ -18,8 +18,9 @@ class CreateTasksTable extends Migration
             $table->foreignId('users_id');
             $table->string('title');
             $table->longText('description');
-            $table->enum('completed', ['0', '1']);
+            $table->tinyInteger('completed')->default(0);
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

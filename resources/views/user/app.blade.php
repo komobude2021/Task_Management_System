@@ -24,14 +24,14 @@
                 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto" style="margin-right:20px">
-                            <li class="nav-item">
+                            <li class="nav-item {{ (request()->is('home')) ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('user.home') }}">User</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ (request()->is('task*')) ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('user.task.index') }}">Task</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.github') }}">Github</a>
+                                <a class="nav-link {{ (request()->is('github')) ? 'active' : '' }}" href="{{ route('user.github') }}">Github</a>
                             </li>
                             <form action="{{ route('user.logout') }}" method="POST" name="forma" id="forma">
                                 @csrf

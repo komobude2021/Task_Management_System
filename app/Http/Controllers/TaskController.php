@@ -23,7 +23,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return 'listing';
+        $paginatedTasks = $this->taskService->getAllTaskPaginate25();
+        return view('user.listing', compact('paginatedTasks'));
     }
 
     /**
@@ -89,7 +90,21 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return ($id);
+    }
+
+    public function completed(Request $request)
+    {
+        $validate = $request->validate(['task' => 'required|integer']);
+
+        if(!$this->taskService->checkIfUserHasPrivilege($validate['task'])){
+            return back()->with(['error' => 'Unable To mark task action as completed | Try Again']);
+        }
+        
+        if(!$this->taskService->updateCompletedTask($validate['task'])){
+            return back()->with(['error' => 'Unable To mark task action as completed | Try Again']);
+        }
+        return back()->with(['success' => 'Successfully marked task action as completed']);
     }
 
 }
