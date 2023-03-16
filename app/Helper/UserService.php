@@ -2,21 +2,17 @@
 
 namespace App\Helper;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class UserService {
 
     public function getUserDetails()
     {
-        return DB::table('users')->where('id', Auth::user()->id)->first();
+        return User::find(auth()->id());
     }
 
     public function updateUserRecord($validated)
     {
-        return DB::table('users')
-                ->where('id', Auth::user()->id)
-                ->update(['github_username'=> $validated['github_username']]);
+        return User::where('id', auth()->id())->update(['github_username' => $validated['github_username']]);
     }
-
 }

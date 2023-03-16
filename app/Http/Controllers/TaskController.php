@@ -82,15 +82,15 @@ class TaskController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        return ($id);
+        if(!$this->taskService->checkIfUserHasPrivilegeToDelete($id)){
+            return back()->with(['error' => 'Error | Unable To perform action']);
+        }
+        if(!$this->taskService->deleteTask($id)){
+            return back()->with(['error' => 'Error | Unable To Delete Task | Try Again']);
+        }
+        return back()->with(['success' => 'Task Successfully Deleted']);
     }
 
     public function completed(Request $request)

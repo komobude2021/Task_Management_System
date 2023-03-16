@@ -3,8 +3,6 @@
 namespace App\Helper;
 
 use App\Models\Task;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class TaskService {
 
@@ -20,8 +18,18 @@ class TaskService {
         return $checkTask ? true : false;  
     }
 
+    public function checkIfUserHasPrivilegeToDelete($task)
+    {
+        $checkTask = Task::where('users_id', auth()->id())->where('id', $task)->whereNull('deleted_at')->first();
+        return $checkTask ? true : false;  
+    }
+
     public function updateCompletedTask($id){
         return Task::where('id', $id)->update(['completed' => 1]);
+    }
+
+    public function deleteTask($id){
+        return Task::where('id', $id)->where('users_id', auth()->id())->delete();
     }
 
 }

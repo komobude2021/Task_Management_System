@@ -20,7 +20,7 @@ class CreateTasksTable extends Migration
             $table->longText('description');
             $table->tinyInteger('completed')->default(0);
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable();
+            $table->softDeletes();
         });
     }
 
