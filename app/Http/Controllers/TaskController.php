@@ -50,19 +50,26 @@ class TaskController extends Controller
 
     public function edit($id)
     {
-        //
+        if (!is_numeric($id)) {
+            return back()->with(['error' => 'Error | Unable to perform action']);
+        }
+        $singleTask = $this->taskService->showSingleTask($id);
+        if (!$singleTask) {
+            return back()->with(['error' => 'Error | Unable to perform action']);
+        }
+        return view('user.edittask', compact('singleTask'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(AddNewTaskRequest $request, $id)
     {
-        //
+        if (!is_numeric($id)) {
+            return back()->with(['error' => 'Error | Unable to perform action']);
+        }
+        $validated = $request->validated();
+        if(!$this->taskService->updateTask($validated, $id)){
+            return back()->withErrors(['error' => 'Error | Unable To Save New Task | Try Again']);
+        }
+        return redirect('/task')->with(['success' => 'Task Successfully Editted']);
     }
 
     public function destroy($id)

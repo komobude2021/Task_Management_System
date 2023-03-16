@@ -54,7 +54,7 @@
                                 <tr>
                                     <td>{{ $i }}.</td>
                                     <td>{{ $task->title }}</td>
-                                    <td>{{ substr($task->description, 0, 50) }}</td>
+                                    <td>{{ substr($task->description, 0, 80) }}</td>
                                     <td>
                                         @if($task->completed == 0)
                                             <span class="pending">Pending</span>

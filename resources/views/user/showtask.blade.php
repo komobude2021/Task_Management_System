@@ -24,8 +24,8 @@
                 <hr/>
             </div>
 
-            <div class="col-md-12">
-                <h3>{{ $singleTask->description }}</h3>
+            <div class="col-md-12 text-justify">
+                <h5>{{ $singleTask->description }}</h5>
             </div>
 
             <div class="col-md-12">

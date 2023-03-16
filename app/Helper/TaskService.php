@@ -38,6 +38,11 @@ class TaskService {
         return $task ? true : false;
     }
 
+    public function updateTask($validated, $id){
+        $task = Task::findOrFail($id);
+        return $task->update($validated);
+    }
+
     public function showSingleTask($id)
     {
         $checkTask = Task::where('users_id', auth()->id())->where('id', $id)->whereNull('deleted_at')->first();
