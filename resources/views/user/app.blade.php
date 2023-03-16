@@ -40,7 +40,7 @@
                         </ul>
 
                         <form action="{{ route('user.search') }}" method="GET" name="formb" id="formb" class="form-inline my-2 my-lg-0" autocomplete="off">
-                            <input class="form-control mr-sm-2" name="search" placeholder="Task Search..." value="@isset($search){{ $search }}@endisset" required>
+                            <input class="form-control mr-sm-2" name="search" placeholder="Task Title Search..." value="@isset($search){{ $search }}@endisset" required>
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                         </form>
                         
