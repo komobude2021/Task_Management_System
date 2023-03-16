@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Helper\GitHubService;
 use App\Helper\TaskService;
+use App\Http\Requests\AddNewTaskRequest;
 
 class TaskController extends Controller
 {
@@ -16,47 +16,29 @@ class TaskController extends Controller
         $this->taskService = $taskService;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $paginatedTasks = $this->taskService->getAllTaskPaginate25();
         return view('user.listing', compact('paginatedTasks'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(AddNewTaskRequest $request)
     {
-        //
+        $validated = $request->validated();
+        if(!$this->taskService->addNewTask($validated)){
+            return back()->withErrors(['error' => 'Error | Unable To Save New Task | Try Again']);
+        }
+        return back()->with(['success' => 'New Task Successfully Saved']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        return $id;
     }
 
     /**

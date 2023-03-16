@@ -8,7 +8,7 @@ class TaskService {
 
     public function getAllTaskPaginate25()
     {
-        $tasks = Task::where('users_id', auth()->id())->whereNull('deleted_at')->paginate(25);
+        $tasks = Task::where('users_id', auth()->id())->whereNull('deleted_at')->orderBy('created_at', 'desc')->paginate(25);
         return $tasks->isEmpty() ? collect([]) : $tasks;   
     }
 
@@ -29,7 +29,13 @@ class TaskService {
     }
 
     public function deleteTask($id){
-        return Task::where('id', $id)->where('users_id', auth()->id())->delete();
+        return Task::where('id', $id)->where('users_id', auth()->id())->update(['deleted_at'=>now()]);
+    }
+
+    public function addNewTask($validated){
+        $validated['users_id'] = auth()->id();
+        $task = Task::create($validated);
+        return $task ? true : false;
     }
 
 }

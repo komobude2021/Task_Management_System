@@ -103,6 +103,14 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-12" style="padding-top:12px">
+                @if (!$paginatedTasks->isEmpty())
+                    {{ $paginatedTasks->links() }}
+                @endif
+            </div>
+        </div>
+
         </div>
     </div>
 @endsection
