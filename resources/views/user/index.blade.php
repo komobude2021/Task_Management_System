@@ -34,11 +34,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Firstname</label>
-                            <input type="text" class="form-control" disabled value="{{ $user->firstname }}">
+                            <input type="text" class="form-control" disabled value="{{ ucwords($user->firstname) }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label>Lastname</label>
-                            <input type="text" class="form-control" disabled value="{{ $user->lastname }}">
+                            <input type="text" class="form-control" disabled value="{{ ucwords($user->lastname) }}">
                         </div>
                     </div>
 
