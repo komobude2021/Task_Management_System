@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helper\GitHubService;
+use App\Helper\TaskService;
 
 class TaskController extends Controller
 {
+
+    private $taskService;
+
+    public function __construct(TaskService $taskService)
+    {
+        $this->taskService = $taskService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        return 'listing';
     }
 
     /**
@@ -83,9 +92,4 @@ class TaskController extends Controller
         //
     }
 
-    public function github(GitHubService $githubService)
-    {
-        $repositories = $githubService->getUserRepositories('komobude202');
-        dd($repositories);
-    }
 }

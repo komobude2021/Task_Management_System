@@ -2,83 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Helper\UserService;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $userService;
+    const ERROR_MESSAGE = 'Unable To Update Information | Please Try Again';
+    const ERROR_MESSAGE_ = 'Unable To Proceed | Github Username Value is Same';
+    const SUCCESS_MESSAGE = 'User Information Successfully Updated';
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function index()
     {
-        //
+        $user = $this->userService->getUserDetails();
+        return view('user.index', compact('user'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function update(UserUpdateRequest $request)
     {
-        //
-    }
+        $validated = $request->validated();
+        if ($validated['github_username'] === Auth::user()->github_username) {
+            return back()->with(['error' => self::ERROR_MESSAGE_]);
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $userUpdate = $this->userService->updateUserRecord($validated);
+        if (!$userUpdate) {
+            return back()->with(['error' => self::ERROR_MESSAGE]);
+        }
+        return back()->with(['success' => self::SUCCESS_MESSAGE]);
     }
 }

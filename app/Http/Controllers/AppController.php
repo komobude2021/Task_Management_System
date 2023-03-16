@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\AppService;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
@@ -29,9 +30,18 @@ class AppController extends Controller
         return view('register');
     }
 
-    public function registerSubmit(RegisterRequest $req)
+    public function registerSubmit(RegisterRequest $req, AppService $appService)
     {
-        dd($req);
+        $validated = $req->validated();
+        if (!$appService->checkIfPasswordMatches($validated['password'], $validated['password_confirm'])) {
+            return back()->withErrors(['error' => 'Passwords do not match'])->withInput();
+        }
+
+        if (!$appService->addNewUser($validated)) {
+            return back()->withErrors(['error' => 'Unable to register new user. Please try again.'])->withInput();
+        }
+
+        return redirect('/')->with(['success' => 'New user successfully created.']);
     }
 
     public function logout(Request $request)

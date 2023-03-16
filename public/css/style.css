@@ -32,9 +32,36 @@
 
 .password {
     font-size: 12px;
-    background-color: red;
+    background-color: #900;
     color: #fff;
     margin-top: 5px;
     font-weight: bold;
     padding:5px
+}
+
+.hide_ {
+    display: none;
+}
+
+.min-content-height {
+    min-height: 550px;
+}
+
+.footer_ {
+    font-size: 14px;
+    text-align: center;
+}
+
+.pd-40{
+    padding-top: 40px;
+    padding-bottom: 40px
+}
+
+.fa-user {
+    font-size: 300px;
+}
+
+.fa-github {
+    font-size: 80px;
+    color:chocolate
 }

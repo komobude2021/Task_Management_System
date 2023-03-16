@@ -43,9 +43,9 @@
 
                         <div class="form-group col-md-6">
                             <label>Password <span class="req">*</span></label>
-                            <input type="password" class="form-control" name="password" placeholder="Password" required>
-                            <div class="password">
-                                <span>Password Must Be 8 character, Must Contain Uppercase, Lowercase, Number and Symbol</span>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                            <div id="password_text" class="password hide_">
+                                <span><i class="fa fa-info-circle"></i> Password Must Be 8 character, Must Contain Uppercase, Lowercase, Number and Symbol</span>
                             </div>
                         </div>
                     </div>
@@ -79,4 +79,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#password").click(function(){
+                $("#password_text").show();
+            });
+
+            $("#password").keyup(function(){
+                $("#password_text").show();
+            });
+        });
+    </script>
+
 @endsection

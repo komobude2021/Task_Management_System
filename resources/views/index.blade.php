@@ -24,6 +24,7 @@
                     @csrf
                     <div class="form-row">
                         @include('displayValidationError')
+                        @include('displayFlashSessionMessage')
                     </div>
                     <div class="form-group">
                         <label>Email address</label>

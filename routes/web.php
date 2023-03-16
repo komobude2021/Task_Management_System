@@ -1,8 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\TaskController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\GithubController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +26,11 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->name('user.')->group(function () {
-
-    Route::get('/github', [TaskController::class, 'github'])->name('github');
+    Route::get('/home', [UserController::class, 'index'])->name('home');
+    Route::post('/home', [UserController::class, 'update'])->name('update');
+    Route::get('/github', [GithubController::class, 'index'])->name('github');
+    Route::get('/search', [SearchController::class, 'index'])->name('search');
+    Route::resource('/task', TaskController::class);
     Route::post('/logout', [AppController::class, 'logout'])->name('logout');
 });
 

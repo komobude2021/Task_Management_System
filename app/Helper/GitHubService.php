@@ -17,12 +17,10 @@ class GitHubService
     public function getUserRepositories($username)
     {
         try {
-            $response = $this->client->request('GET', 'https://api.github.com/users/' . $username . '/repos', [
-                'headers' => [
-                    'Accept' => 'application/vnd.github.v3+json',
-                ],
+            $response = $this->client->request('GET', "https://api.github.com/users/{$username}/repos?sort=created&direction=desc", [
+                'headers' => ['Accept' => 'application/vnd.github.v3+json'],
             ]);
-            return json_decode($response->getBody());
+            return json_decode($response->getBody(), true);
         } catch (Exception $e) {
             return false;
         }
