@@ -29,8 +29,7 @@ class RegisterRequest extends FormRequest
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => ['required', 'email', new UniqueEmail],
-            'password' => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
-            'password_confirm' => ['required'],
+            'password' => ['required', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
             'github_username' => 'nullable|string',
         ];
     }

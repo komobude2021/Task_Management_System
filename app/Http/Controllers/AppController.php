@@ -22,7 +22,7 @@ class AppController extends Controller
             $req->session()->regenerate();
             return redirect()->intended('/home');
         }
-        return back()->withErrors(['email' => 'Incorrect Login Credentials']);
+        return redirect()->back()->withErrors(['email' => 'Incorrect Login Credentials']);
     }
 
     public function register()
@@ -33,15 +33,12 @@ class AppController extends Controller
     public function registerSubmit(RegisterRequest $req, AppService $appService)
     {
         $validated = $req->validated();
-        if (!$appService->checkIfPasswordMatches($validated['password'], $validated['password_confirm'])) {
-            return back()->withErrors(['error' => 'Passwords do not match'])->withInput();
-        }
 
         if (!$appService->addNewUser($validated)) {
-            return back()->withErrors(['error' => 'Unable to register new user. Please try again.'])->withInput();
+            return redirect()->back()->withErrors(['error' => 'Unable to register new user. Please try again'])->withInput();
         }
 
-        return redirect('/')->with(['success' => 'New user successfully created.']);
+        return redirect()->route('login')->with(['success' => 'New user successfully created']);
     }
 
     public function logout(Request $request)
@@ -49,6 +46,6 @@ class AppController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect()->route('login');
     }
 }

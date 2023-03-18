@@ -28,13 +28,13 @@ class UserController extends Controller
     {
         $validated = $request->validated();
         if ($validated['github_username'] === Auth::user()->github_username) {
-            return back()->with(['error' => self::ERROR_MESSAGE_]);
+            return redirect()->back()->with(['error' => self::ERROR_MESSAGE_]);
         }
 
         $userUpdate = $this->userService->updateUserRecord($validated);
         if (!$userUpdate) {
-            return back()->with(['error' => self::ERROR_MESSAGE]);
+            return redirect()->back()->with(['error' => self::ERROR_MESSAGE]);
         }
-        return back()->with(['success' => self::SUCCESS_MESSAGE]);
+        return redirect()->back()->with(['success' => self::SUCCESS_MESSAGE]);
     }
 }

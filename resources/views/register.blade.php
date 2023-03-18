@@ -53,7 +53,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Re-Type Password <span class="req">*</span></label>
-                            <input type="password" class="form-control" name="password_confirm" placeholder="Re-Type Password" required>
+                            <input type="password" class="form-control" name="password_confirmation" placeholder="Re-Type Password" required>
                         </div>
 
                         <div class="form-group col-md-6">
