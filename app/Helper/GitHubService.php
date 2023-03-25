@@ -17,6 +17,7 @@ class GitHubService
     public function getUserRepositories($username)
     {
         try {
+            $username = urlencode($username);
             $response = $this->client->request('GET', "https://api.github.com/users/{$username}/repos?sort=created&direction=desc", [
                 'headers' => ['Accept' => 'application/vnd.github.v3+json'],
             ]);
